@@ -45,8 +45,8 @@ It helps users manage tasks, notes, and daily workflow in one place.
 
 ---
 ## 📸 Screenshots
-![Homepage](desktop/html/images/index.png)
-![Dashboard](desktop/html/images/analytics.png)
+![Homepage](C:\Users\rishi\OneDrive\Desktop\html\images\index.png)
+![Dashboard](C:\Users\rishi\OneDrive\Desktop\html\images\amalytics.png)
 
 ## 🚀 How to Run Locally
 
