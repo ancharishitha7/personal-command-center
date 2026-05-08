@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal Command Center - A premium productivity dashboard">
+    <meta name="theme-color" content="#0a0a0f">
+    <title>Command Center | Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Custom Notification Container -->
+    <div id="notification-container"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7" rx="1"/>
+                        <rect x="14" y="3" width="7" height="7" rx="1"/>
+                        <rect x="3" y="14" width="7" height="7" rx="1"/>
+                        <rect x="14" y="14" width="7" height="7" rx="1"/>
+                    </svg>
+                </div>
+                <span class="logo-text">Command Center</span>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link active">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9,22 9,12 15,12 15,22"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="analytics.html" class="nav-link">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 20V10M12 20V4M6 20v-6"/>
+                    </svg>
+                    <span>Analytics</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="time-format-toggle">
+                    <button id="time-format-btn" class="icon-btn" title="Toggle 12h/24h">
+                        <span id="time-format-label">24H</span>
+                    </button>
+                </div>
+                <button id="theme-toggle" class="icon-btn" title="Toggle Theme (T)">
+                    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <button id="fullscreen-btn" class="icon-btn" title="Fullscreen (F11)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                    </svg>
+                </button>
+                <div class="keyboard-hint">
+                    <kbd>?</kbd> Shortcuts
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Grid -->
+        <main class="dashboard-grid">
+            <!-- Clock & Date Section -->
+            <section class="card clock-card" aria-label="Clock and Date">
+                <div class="clock-display">
+                    <span id="clock-time" class="clock-time">00:00</span>
+                    <span id="clock-seconds" class="clock-seconds">:00</span>
+                    <span id="clock-period" class="clock-period"></span>
+                </div>
+                <div class="date-display">
+                    <span id="weekday" class="weekday">Loading...</span>
+                    <span id="full-date" class="full-date"></span>
+                </div>
+                <div class="greeting" id="greeting">Good morning!</div>
+                <div class="pomodoro-mini" id="pomodoro-mini">
+                    <button id="pomodoro-start" class="pomodoro-btn" title="Start Pomodoro Timer">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5,3 19,12 5,21"/>
+                        </svg>
+                        <span id="pomodoro-display">25:00</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Weather Widget -->
+            <section class="card weather-card" aria-label="Weather Information">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/>
+                        </svg>
+                        Weather
+                    </h2>
+                    <button id="refresh-weather" class="icon-btn-sm" title="Refresh">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 4v6h-6M1 20v-6h6"/>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="weather-content" id="weather-content">
+                    <div class="weather-icon" id="weather-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="5"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                        </svg>
+                    </div>
+                    <div class="weather-info">
+                        <div class="weather-temp" id="weather-temp">--°C</div>
+                        <div class="weather-desc" id="weather-desc">Loading...</div>
+                        <div class="weather-location" id="weather-location">Detecting location...</div>
+                        <div class="weather-details" id="weather-details">
+                            <span class="weather-detail">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2v20M2 12h20"/>
+                                </svg>
+                                <span id="weather-humidity">--%</span>
+                            </span>
+                            <span class="weather-detail">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>
+                                </svg>
+                                <span id="weather-wind">-- km/h</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Daily Focus -->
+            <section class="card focus-card" aria-label="Daily Focus">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                        Daily Focus
+                    </h2>
+                    <span class="focus-streak" id="focus-streak" title="Day Streak">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                        <span id="streak-count">0</span>
+                    </span>
+                </div>
+                <div class="focus-content">
+                    <input type="text" id="focus-input" class="focus-input" placeholder="What's your main focus today? (Press F)" maxlength="100">
+                    <div id="focus-display" class="focus-display hidden">
+                        <span id="focus-text"></span>
+                        <button id="clear-focus" class="icon-btn-sm" title="Clear Focus">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Motivational Quote -->
+            <section class="card quote-card" aria-label="Motivational Quote">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21z"/>
+                            <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3z"/>
+                        </svg>
+                        Daily Inspiration
+                    </h2>
+                    <div class="quote-actions">
+                        <button id="copy-quote" class="icon-btn-sm" title="Copy Quote (C)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2"/>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                            </svg>
+                        </button>
+                        <button id="new-quote" class="icon-btn-sm" title="New Quote (Q)">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 4v6h-6M1 20v-6h6"/>
+                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="quote-content">
+                    <p id="quote-text" class="quote-text">"The only way to do great work is to love what you do."</p>
+                    <span id="quote-author" class="quote-author">— Steve Jobs</span>
+                </div>
+                <div class="quote-category" id="quote-category">Motivation</div>
+            </section>
+
+            <!-- Productivity Stats -->
+            <section class="card stats-card" aria-label="Productivity Statistics">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 20V10M12 20V4M6 20v-6"/>
+                        </svg>
+                        Today's Progress
+                    </h2>
+                    <a href="analytics.html" class="view-more" title="View Analytics">
+                        View All
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="stats-content">
+                    <div class="stat-item">
+                        <div class="stat-icon completed">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="tasks-completed">0</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon pending">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="tasks-pending">0</div>
+                            <div class="stat-label">Pending</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon rate">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="completion-rate">0%</div>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+                </div>
+                <div class="progress-label">
+                    <span id="progress-text">No tasks yet</span>
+                </div>
+            </section>
+
+            <!-- To-Do List -->
+            <section class="card todo-card" aria-label="Task List">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 11l3 3L22 4"/>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                        </svg>
+                        Tasks
+                    </h2>
+                    <div class="todo-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="active">Active</button>
+                        <button class="filter-btn" data-filter="completed">Done</button>
+                    </div>
+                </div>
+                <form id="todo-form" class="todo-form">
+                    <input type="text" id="todo-input" class="todo-input" placeholder="Add a new task... (Enter)" maxlength="100">
+                    <select id="todo-priority" class="todo-priority" title="Priority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    <button type="submit" class="add-btn" title="Add Task">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </button>
+                </form>
+                <ul id="todo-list" class="todo-list"></ul>
+                <div id="todo-empty" class="empty-state">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <path d="M9 12l2 2 4-4"/>
+                    </svg>
+                    <p>No tasks yet. Add one above!</p>
+                </div>
+                <div class="todo-footer" id="todo-footer">
+                    <span class="task-count" id="task-count">0 tasks</span>
+                    <button id="clear-completed" class="clear-btn" title="Clear completed tasks">Clear Completed</button>
+                </div>
+            </section>
+
+            <!-- Notes Section -->
+            <section class="card notes-card" aria-label="Quick Notes">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                        </svg>
+                        Quick Notes
+                    </h2>
+                    <div class="notes-actions">
+                        <span class="char-count" id="char-count">0 / 5000</span>
+                        <span class="autosave-indicator" id="autosave-indicator">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"/>
+                            </svg>
+                            Saved
+                        </span>
+                    </div>
+                </div>
+                <textarea id="notes-area" class="notes-area" placeholder="Press 'N' to focus here and start typing your notes..." maxlength="5000"></textarea>
+                <div class="notes-toolbar">
+                    <button id="clear-notes" class="toolbar-btn" title="Clear Notes">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                        Clear
+                    </button>
+                    <button id="download-notes" class="toolbar-btn" title="Download Notes">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                        </svg>
+                        Download
+                    </button>
+                </div>
+            </section>
+
+            <!-- Habits Tracker Mini -->
+            <section class="card habits-card" aria-label="Daily Habits">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        Daily Habits
+                    </h2>
+                    <button id="add-habit" class="icon-btn-sm" title="Add Habit">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="habits-list" class="habits-list"></div>
+                <div id="habits-empty" class="empty-state mini">
+                    <p>No habits yet. Click + to add one!</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Keyboard Shortcuts Modal -->
+        <div id="shortcuts-modal" class="modal hidden" role="dialog" aria-labelledby="shortcuts-title">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="shortcuts-title">Keyboard Shortcuts</h3>
+                    <button id="close-modal" class="icon-btn" aria-label="Close modal">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 6L6 18M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="shortcuts-grid">
+                    <div class="shortcut-item">
+                        <kbd>N</kbd>
+                        <span>Focus Notes</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>T</kbd>
+                        <span>Toggle Theme</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Q</kbd>
+                        <span>New Quote</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>F</kbd>
+                        <span>Focus Task</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>C</kbd>
+                        <span>Copy Quote</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>P</kbd>
+                        <span>Pomodoro</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>Esc</kbd>
+                        <span>Close/Blur</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <kbd>?</kbd>
+                        <span>Show Shortcuts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Habit Modal -->
+        <div id="habit-modal" class="modal hidden" role="dialog" aria-labelledby="habit-title">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="habit-title">Add New Habit</h3>
+                    <button id="close-habit-modal" class="icon-btn" aria-label="Close modal">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 6L6 18M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                <form id="habit-form" class="habit-form">
+                    <input type="text" id="habit-input" class="habit-input" placeholder="Enter habit name..." maxlength="50" required>
+                    <div class="habit-icons">
+                        <button type="button" class="habit-icon-btn selected" data-icon="check">✓</button>
+                        <button type="button" class="habit-icon-btn" data-icon="water">💧</button>
+                        <button type="button" class="habit-icon-btn" data-icon="exercise">🏃</button>
+                        <button type="button" class="habit-icon-btn" data-icon="book">📚</button>
+                        <button type="button" class="habit-icon-btn" data-icon="meditation">🧘</button>
+                        <button type="button" class="habit-icon-btn" data-icon="sleep">😴</button>
+                    </div>
+                    <button type="submit" class="submit-btn">Add Habit</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Personal Command Center &copy; <span id="current-year"></span> | Built for Productivity</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

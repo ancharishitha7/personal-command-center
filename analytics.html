@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal Command Center - Analytics & Statistics">
+    <meta name="theme-color" content="#0a0a0f">
+    <title>Command Center | Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="analytics.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-container"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7" rx="1"/>
+                        <rect x="14" y="3" width="7" height="7" rx="1"/>
+                        <rect x="3" y="14" width="7" height="7" rx="1"/>
+                        <rect x="14" y="14" width="7" height="7" rx="1"/>
+                    </svg>
+                </div>
+                <span class="logo-text">Command Center</span>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9,22 9,12 15,12 15,22"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="analytics.html" class="nav-link active">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 20V10M12 20V4M6 20v-6"/>
+                    </svg>
+                    <span>Analytics</span>
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+                    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <button id="export-data" class="icon-btn" title="Export Data">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Page Title -->
+        <div class="page-header">
+            <h1 class="page-title">Analytics & Insights</h1>
+            <p class="page-subtitle">Track your productivity journey and identify patterns</p>
+        </div>
+
+        <!-- Analytics Grid -->
+        <main class="analytics-grid">
+            <!-- Overview Stats -->
+            <section class="card overview-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/>
+                        </svg>
+                        Overview
+                    </h2>
+                    <select id="date-range" class="date-range-select">
+                        <option value="today">Today</option>
+                        <option value="week" selected>This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="all">All Time</option>
+                    </select>
+                </div>
+                <div class="overview-stats">
+                    <div class="overview-stat">
+                        <div class="overview-icon tasks">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 11l3 3L22 4"/>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                            </svg>
+                        </div>
+                        <div class="overview-info">
+                            <span class="overview-number" id="total-tasks">0</span>
+                            <span class="overview-label">Total Tasks</span>
+                        </div>
+                    </div>
+                    <div class="overview-stat">
+                        <div class="overview-icon completed">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <path d="M22 4L12 14.01l-3-3"/>
+                            </svg>
+                        </div>
+                        <div class="overview-info">
+                            <span class="overview-number" id="total-completed">0</span>
+                            <span class="overview-label">Completed</span>
+                        </div>
+                    </div>
+                    <div class="overview-stat">
+                        <div class="overview-icon streak">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                            </svg>
+                        </div>
+                        <div class="overview-info">
+                            <span class="overview-number" id="current-streak">0</span>
+                            <span class="overview-label">Day Streak</span>
+                        </div>
+                    </div>
+                    <div class="overview-stat">
+                        <div class="overview-icon focus">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </div>
+                        <div class="overview-info">
+                            <span class="overview-number" id="focus-hours">0h</span>
+                            <span class="overview-label">Focus Time</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weekly Activity Chart -->
+            <section class="card chart-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 20V10M12 20V4M6 20v-6"/>
+                        </svg>
+                        Weekly Activity
+                    </h2>
+                </div>
+                <div class="chart-container">
+                    <div class="bar-chart" id="weekly-chart">
+                        <div class="bar-group">
+                            <div class="bar" data-day="mon" style="--height: 0%"></div>
+                            <span class="bar-label">Mon</span>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar" data-day="tue" style="--height: 0%"></div>
+                            <span class="bar-label">Tue</span>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar" data-day="wed" style="--height: 0%"></div>
+                            <span class="bar-label">Wed</span>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar" data-day="thu" style="--height: 0%"></div>
+                            <span class="bar-label">Thu</span>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar" data-day="fri" style="--height: 0%"></div>
+                            <span class="bar-label">Fri</span>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar" data-day="sat" style="--height: 0%"></div>
+                            <span class="bar-label">Sat</span>
+                        </div>
+                        <div class="bar-group">
+                            <div class="bar" data-day="sun" style="--height: 0%"></div>
+                            <span class="bar-label">Sun</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-legend">
+                    <span class="legend-item">
+                        <span class="legend-color completed"></span>
+                        Tasks Completed
+                    </span>
+                </div>
+            </section>
+
+            <!-- Task Categories -->
+            <section class="card categories-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 2a10 10 0 0 1 10 10"/>
+                            <path d="M12 2a10 10 0 0 0-10 10"/>
+                        </svg>
+                        Task Priority Distribution
+                    </h2>
+                </div>
+                <div class="priority-chart">
+                    <div class="donut-chart" id="priority-donut">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="donut-ring" cx="50" cy="50" r="40"/>
+                            <circle class="donut-segment high" cx="50" cy="50" r="40" id="donut-high"/>
+                            <circle class="donut-segment medium" cx="50" cy="50" r="40" id="donut-medium"/>
+                            <circle class="donut-segment low" cx="50" cy="50" r="40" id="donut-low"/>
+                        </svg>
+                        <div class="donut-center">
+                            <span id="donut-total">0</span>
+                            <span>Total</span>
+                        </div>
+                    </div>
+                    <div class="priority-legend">
+                        <div class="legend-row">
+                            <span class="legend-dot high"></span>
+                            <span class="legend-text">High Priority</span>
+                            <span class="legend-value" id="high-count">0</span>
+                        </div>
+                        <div class="legend-row">
+                            <span class="legend-dot medium"></span>
+                            <span class="legend-text">Medium Priority</span>
+                            <span class="legend-value" id="medium-count">0</span>
+                        </div>
+                        <div class="legend-row">
+                            <span class="legend-dot low"></span>
+                            <span class="legend-text">Low Priority</span>
+                            <span class="legend-value" id="low-count">0</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Habits Progress -->
+            <section class="card habits-progress-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <path d="M22 4L12 14.01l-3-3"/>
+                        </svg>
+                        Habits This Week
+                    </h2>
+                </div>
+                <div class="habits-week-grid" id="habits-week-grid">
+                    <div class="habits-loading">Loading habits data...</div>
+                </div>
+            </section>
+
+            <!-- Activity Log -->
+            <section class="card activity-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                        Recent Activity
+                    </h2>
+                    <button id="clear-activity" class="icon-btn-sm" title="Clear Activity">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="activity-list" id="activity-list">
+                    <div class="activity-empty">No recent activity</div>
+                </div>
+            </section>
+
+            <!-- Productivity Score -->
+            <section class="card score-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+                        </svg>
+                        Productivity Score
+                    </h2>
+                </div>
+                <div class="score-display">
+                    <div class="score-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="score-bg" cx="50" cy="50" r="45"/>
+                            <circle class="score-fill" cx="50" cy="50" r="45" id="score-circle"/>
+                        </svg>
+                        <div class="score-value" id="productivity-score">0</div>
+                    </div>
+                    <div class="score-details">
+                        <div class="score-item">
+                            <span class="score-label">Task Completion</span>
+                            <div class="score-bar">
+                                <div class="score-bar-fill" id="task-score-bar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-label">Focus Time</span>
+                            <div class="score-bar">
+                                <div class="score-bar-fill" id="focus-score-bar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="score-item">
+                            <span class="score-label">Habit Streak</span>
+                            <div class="score-bar">
+                                <div class="score-bar-fill" id="habit-score-bar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Personal Command Center &copy; <span id="current-year"></span> | Built for Productivity</p>
+        </footer>
+    </div>
+
+    <script src="analytics.js"></script>
+</body>
+</html>
