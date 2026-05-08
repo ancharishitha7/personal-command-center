@@ -45,8 +45,8 @@ It helps users manage tasks, notes, and daily workflow in one place.
 
 ---
 ## 📸 Screenshots
-![Homepage](images/index.png)
-![Dashboard](images/analytics.png)
+![Homepage](desktop/html/images/index.png)
+![Dashboard](desktop/html/images/analytics.png)
 
 ## 🚀 How to Run Locally
 
